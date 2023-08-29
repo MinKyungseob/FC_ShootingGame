@@ -31,6 +31,7 @@ public class EnemyControl : MonoBehaviour
         //총알에 맞았다면
         if(other.tag=="Bullet")
         {
+            MainControl.Score += 100;
             Instantiate(Explosion, myTransform.position, Quaternion.identity);
             InitPosition();
             Destroy(other.gameObject);
