@@ -7,7 +7,15 @@ public class MainControl : MonoBehaviour
     static public int Score = 0;
     static public int Life = 3;
     public GUISkin mySkin = null;
+    public bool isGameOver;
+    [SerializeField] GameObject gameOverUI;
 
+    private void Awake()
+    {
+        gameOverUI.SetActive(false);
+        MainControl.Score = 0;
+        MainControl.Life = 3;
+    }
     private void OnGUI()
     {
         //skin 변경.
@@ -23,8 +31,31 @@ public class MainControl : MonoBehaviour
     {
         if(MainControl.Score>500)
         {
-            MainControl.Score = 0;
             UnityEngine.SceneManagement.SceneManager.LoadScene("Victory");
+        }        
+        if(MainControl.Life<1)
+        {
+            GameOver();
+            restart();
+        }
+    }
+    void GameOver()
+    {
+        isGameOver = true;
+        gameOverUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    void restart()
+    {
+        if (isGameOver == true)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {   //모든 내용 리셋
+                Awake();
+                //Time.timeScale=0f이면 멈추고, 0.5f면 0.5배속, 1f면 1배속으로 게임이 진행됨.
+                Time.timeScale = 1f;
+            }
         }
     }
 }

@@ -37,4 +37,14 @@ public class PlayerControl : MonoBehaviour
         }
 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //Enemy¿Í ºÎµúÇû´Ù¸é
+        if (other.tag == "Enemy")
+        {
+            Debug.Log("¸ÂÀ½");
+            MainControl.Life--;
+        }
+    }
 }
